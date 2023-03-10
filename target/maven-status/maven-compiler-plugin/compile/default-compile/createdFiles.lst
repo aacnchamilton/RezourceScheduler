@@ -1,6 +1,8 @@
+com\rezourcesched\rez\iRezourceController.class
 com\rezourcesched\rez\Rezource$RezourceBuilder.class
 com\rezourcesched\rez\Reservation$ReservationBuilder.class
 com\rezourcesched\rez\Reservation.class
+com\rezourcesched\rez\RezourceController.class
 com\rezourcesched\rez\RezourceType.class
 com\rezourcesched\rez\Rezource.class
 com\rezourcesched\rez\ReservationStatus.class
