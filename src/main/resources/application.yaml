@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    password: resource
+    username: resource
+    url: jdbc:mysql://localhost:3306/resource
+
+logging:
+  level:
+    root: info
+    '[com.rezourcesched.rez]': info

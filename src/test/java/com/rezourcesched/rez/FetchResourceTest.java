@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
-import com.rezourcesched.rez.Rezource;
+import com.rezourcesched.rez.entity.Rezource;
 import lombok.Getter;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)

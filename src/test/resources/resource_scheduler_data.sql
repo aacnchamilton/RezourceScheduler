@@ -8,11 +8,11 @@ INSERT INTO person (first_name, middle_name, last_name, email, phone, status) VA
 commit;
 
 /*********************** rezource ******************/
-INSERT INTO rezource (name, description, rezource_type, rezourcer_id, schedule_type, regular_price, start_time, end_time, status) 
+INSERT INTO rezource (name, description, rezource_type, rezourcer_id, schedule_type, regular_rate, start_time, end_time, status) 
 	VALUES('Hamilton Horseshoing and Hoofcare','Ferrier service for Northern Minnesota','service', 2, 'hourly','50','08:00:00','17:00:00', 'active');
-INSERT INTO rezource (name, description, rezource_type, rezourcer_id, schedule_type, regular_price, start_time, end_time, status) 
+INSERT INTO rezource (name, description, rezource_type, rezourcer_id, schedule_type, regular_rate, start_time, end_time, status) 
 	VALUES('Crown King Cottage','3 bedroom 2 bath vacation rental in Crown King, AZ','place', 1, 'daily','200','15:00:00','12:00:00', 'active');
-INSERT INTO rezource (name, description, rezource_type, rezourcer_id, schedule_type, regular_price, start_time, end_time, status) 
+INSERT INTO rezource (name, description, rezource_type, rezourcer_id, schedule_type, regular_rate, start_time, end_time, status) 
 	VALUES('19 foot Tracker John Boat','19 Foot tracker John Boat for rent in Northern Minnesota','thing', 3, 'daily','50','08:00:00','17:00:00', 'active');
 commit;
 
