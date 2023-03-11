@@ -58,7 +58,12 @@ public interface iRezourceController {
               name = "rezourceType", 
               allowEmptyValue = false, 
               required = false, 
-              description = "The type of Rezource: Service, Place or Thing")
+              description = "The type of Rezource: Service, Place or Thing"),
+          @Parameter(
+              name = "rezourcerId", 
+              allowEmptyValue = false, 
+              required = false, 
+              description = "The person who owns the Rezource")
       }
       
   )
@@ -68,5 +73,6 @@ public interface iRezourceController {
   List<Rezource> fetchRezource(
       @RequestParam(required = false) Long rezourceId, 
       @RequestParam(required = false) String name,
-      @RequestParam(required = false) RezourceType rezourceType);
+      @RequestParam(required = false) RezourceType rezourceType,
+      @RequestParam(required = false) Long rezourcerId);
 }

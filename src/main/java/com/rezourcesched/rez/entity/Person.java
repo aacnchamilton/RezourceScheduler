@@ -17,6 +17,14 @@ public class Person {
   private String email;
   private String phone;
   private String countryCode;
+  private String addr1;
+  private String addr2;
+  private String city;
+  private String state;
+  private String province;
+  private String postalCode;
+  private String country;
+  private String billing;
   private Status status;
   
 }

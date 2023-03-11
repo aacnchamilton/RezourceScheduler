@@ -12,6 +12,14 @@ CREATE TABLE person (
   phone VARCHAR(20) NOT NULL,
   country_code VARCHAR(5),
   status enum('Active','Terminated','Inactive','NotVerified') NOT NULL,
+  addr1 VARCHAR(200) NOT NULL,
+	addr2 VARCHAR(200) NOT NULL,
+	city VARCHAR(200) NOT NULL,
+	state VARCHAR(2),
+	province VARCHAR(200),
+	postal_code VARCHAR(10) NOT null,
+	country VARCHAR(60) NOT NULL,
+	billing char(1),
   PRIMARY KEY (person_id),
   UNIQUE KEY (email)
 );
@@ -23,15 +31,16 @@ CREATE TABLE rezource (
 	rezource_type enum('Service', 'Place', 'Thing') NOT NULL,
 	rezourcer_id int unsigned NOT NULL,
 	schedule_type enum('Hourly', 'Daily', 'Monthly') NOT NULL,
+	minimum int unsigned,
 	regular_rate decimal(9,2) NOT NULL,
-	travel_rate decimal(9,2),
 	deposit decimal(9,2),
 	cleaning_fee decimal(9,2),
+    travel_rate decimal(9,2),
 	emerg_rate decimal(9,2),
 	weekend_rate decimal(9,2),
 	start_time TIME NOT NULL,
 	end_time TIME NOT NULL,
-	bedroooms int unsigned,
+	bedrooms int unsigned,
 	bathrooms int unsigned,
 	size_in_ft int unsigned,
 	people int unsigned,
@@ -41,7 +50,15 @@ CREATE TABLE rezource (
 	model varchar(200),
 	year int unsigned,
 	key_words VARCHAR(200),
-	status enum('Active','Terminated','Inactive','NotVerified') NOT NULL,
+	status enum('Active','Inactive','NotVerified','Terminated') NOT NULL,
+    addr1 VARCHAR(200),
+	addr2 VARCHAR(200),
+	city VARCHAR(200),
+	state VARCHAR(2),
+	province VARCHAR(200),
+	postal_code VARCHAR(10),
+	country VARCHAR(60),
+	billing char(1),
 	PRIMARY KEY (rezource_id),
 	UNIQUE KEY (name, rezourcer_id),
 	CONSTRAINT FK_PersonRezource FOREIGN KEY (rezourcer_id) REFERENCES person(person_id) ON DELETE CASCADE
@@ -61,9 +78,9 @@ CREATE TABLE address (
 	rezource_id int unsigned,
 	person_id int unsigned NOT NULL,
 	PRIMARY KEY (address_id),
-	UNIQUE KEY (addr1, addr2, postal_code, country, person_id),
-	CONSTRAINT FK_RezourceAddress FOREIGN KEY (rezource_id) REFERENCES rezource(rezource_id),
-	CONSTRAINT FK_PersonAddress FOREIGN KEY (person_id) REFERENCES person (person_id) ON DELETE CASCADE
+	UNIQUE KEY (addr1, addr2, postal_code, country, person_id) -- ,
+	-- CONSTRAINT FK_RezourceAddress FOREIGN KEY (rezource_id) REFERENCES rezource(rezource_id),
+	-- CONSTRAINT FK_PersonAddress FOREIGN KEY (person_id) REFERENCES person (person_id) ON DELETE CASCADE
 );
 
 CREATE TABLE reservation (
@@ -75,12 +92,12 @@ CREATE TABLE reservation (
 	travel_time INT unsigned,
 	rezource_id int unsigned NOT NULL,
 	scheduler_id int unsigned NOT NULL,
-	address_id int unsigned NOT NULL,
+	-- address_id int unsigned NOT NULL,
 	num_of_people int unsigned,
 	special_requests varchar(1000),
 	status enum('Requested','Accepted','Cancelled','Completed','NotSubmitted') NOT NULL,
 	PRIMARY KEY (reservation_id),
 	CONSTRAINT FK_RezourceReservation FOREIGN KEY (rezource_id) REFERENCES rezource(rezource_id),
-	CONSTRAINT FK_SchedulerReservation FOREIGN KEY (scheduler_id) REFERENCES person(person_id),
-	CONSTRAINT FK_AddressReservation FOREIGN KEY (address_id) REFERENCES address(address_id)
+	CONSTRAINT FK_SchedulerReservation FOREIGN KEY (scheduler_id) REFERENCES person(person_id) -- ,
+	-- CONSTRAINT FK_AddressReservation FOREIGN KEY (address_id) REFERENCES address(address_id)
 );

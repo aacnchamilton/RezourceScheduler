@@ -1,7 +1,6 @@
 package com.rezourcesched.rez.entity;
 
 import java.sql.Timestamp;
-import java.time.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,4 +36,12 @@ public class Rezource {
   private String manufacturer;
   private String model;
   private String keywords;
+  private String addr1;
+  private String addr2;
+  private String city;
+  private String state;
+  private String province;
+  private String postalCode;
+  private String country;
+  private String billing;
 }
