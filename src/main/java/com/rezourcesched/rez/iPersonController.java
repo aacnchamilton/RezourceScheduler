@@ -25,7 +25,7 @@ public interface iPersonController {
       responses = {
           @ApiResponse(
               responseCode = "200", 
-              description = "A list of Rezources is returned", 
+              description = "A list of People is returned", 
               content = @Content(mediaType = "application/json", 
               schema = @Schema(implementation = Person.class))),
           @ApiResponse(
@@ -34,7 +34,7 @@ public interface iPersonController {
               content = @Content(mediaType = "application/json")),
           @ApiResponse(
               responseCode = "404", 
-              description = "No Rezources were found with the input criteria", 
+              description = "No People were found with the input criteria", 
               content = @Content(mediaType = "application/json")),
           @ApiResponse(
               responseCode = "500", 

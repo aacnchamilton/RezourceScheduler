@@ -6,6 +6,7 @@ com\rezourcesched\rez\iRezourceService.class
 com\rezourcesched\rez\PersonService.class
 com\rezourcesched\rez\RezourceService.class
 com\rezourcesched\rez\iPersonDao.class
+com\rezourcesched\rez\iReservationController.class
 com\rezourcesched\rez\iRezourceDAO.class
 com\rezourcesched\rez\entity\Reservation$ReservationBuilder.class
 com\rezourcesched\rez\iPersonController.class
@@ -16,6 +17,7 @@ com\rezourcesched\rez\iPersonService.class
 com\rezourcesched\rez\iRezourceController.class
 com\rezourcesched\rez\entity\Reservation.class
 com\rezourcesched\rez\RezourceDAO.class
+com\rezourcesched\rez\ReservationController.class
 com\rezourcesched\rez\PersonController.class
 com\rezourcesched\rez\ComponentScanMarker.class
 com\rezourcesched\rez\entity\Person.class
