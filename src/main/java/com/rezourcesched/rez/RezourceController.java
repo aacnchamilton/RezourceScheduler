@@ -15,8 +15,9 @@ public class RezourceController implements iRezourceController {
   RezourceService rezourceService;
 
   @Override
-  public List<Rezource> fetchRezource(Long rezourceId, String name, RezourceType rezourceType, Long rezourcerId) {
-    log.info("RezourceController.fetchRezource: rezourceId = {}, name = {}, rezourceType = {}, rezourcerId = {}", rezourceId, name, rezourceType, rezourcerId);
-    return rezourceService.fetchRezource(rezourceId, name, rezourceType, rezourcerId);
+  public List<Rezource> fetchRezource(Long rezourceId, String state, String postalCode, RezourceType rezourceType, Long rezourcerId) {
+    log.info("RezourceController.fetchRezource: rezourceId = {}, state = {}, postalCode = {}, rezourceType = {}, rezourcerId = {}"
+        , rezourceId, state, postalCode, rezourceType, rezourcerId);
+    return rezourceService.fetchRezource(rezourceId, state, postalCode, rezourceType, rezourcerId);
   }
 }

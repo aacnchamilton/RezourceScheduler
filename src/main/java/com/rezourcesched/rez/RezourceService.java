@@ -15,9 +15,10 @@ public class RezourceService implements iRezourceService {
   RezourceDAO rezourceDao;
 
   @Override
-  public List<Rezource> fetchRezource(Long rezourceId, String name, RezourceType rezourceType, Long rezourcerId) {
-    log.info("RezourceService: fetchRezource: rezourceId = {}, name = {}, rezourceType = {}, rezourcerId = {}", rezourceId, name, rezourceType, rezourcerId);
-    return rezourceDao.fetchRezource(rezourceId, name, rezourceType, rezourcerId);
+  public List<Rezource> fetchRezource(Long rezourceId, String state, String postalCode, RezourceType rezourceType, Long rezourcerId) {
+    log.info("RezourceService: fetchRezource: rezourceId = {}, state = {}, postalCode = {}, rezourceType = {}, rezourcerId = {}"
+        , rezourceId, state, postalCode, rezourceType, rezourcerId);
+    return rezourceDao.fetchRezource(rezourceId, state, postalCode, rezourceType, rezourcerId);
   }
 
 }

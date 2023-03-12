@@ -25,18 +25,23 @@ public class RezourceDAO implements iRezourceDAO {
   NamedParameterJdbcTemplate jdbcTemplate;
 
   @Override
-  public List<Rezource> fetchRezource(Long rezourceId, String name, RezourceType rezourceType, Long rezourcerId) {
-    log.info("RezourceDAO.fetchRezource rezourceId = {}, name = {}, rezourceType = {}, rezourcerId = {}", rezourceId, name, rezourceType, rezourcerId);
-    
+  public List<Rezource> fetchRezource(Long rezourceId, String state, String postalCode, RezourceType rezourceType, Long rezourcerId) {
+    log.info("RezourceDAO.fetchRezource rezourceId = {}, state = {}, postalCode = {}, rezourceType = {}, rezourcerId = {}"
+        , rezourceId, state, postalCode, rezourceType, rezourcerId);
+    /*** At some point add a City Search ***/
     String sql = "SELECT * FROM rezource WHERE 1=1";  //where 1=1 allows me to construct additional optional bind variables
     Map<String, Object> params = new HashMap<>();
-    if (!(name == null)) {  //if name is not null
-      sql += " and name = :name";
-      params.put("name", name);
+    if (!(state == null)) {  //if name is not null
+      sql += " and state = :state";
+      params.put("state", state);
     }
-    if (!(rezourceType == null)) {  //if type is not null
+    if (!(postalCode == null)) { 
+      sql += " and postal_code = :postalCode";
+      params.put("postalCode", postalCode);
+    }
+    if (!(rezourceType == null)) { 
       sql += " and rezource_type = :rezourceType";
-      params.put("rezourceType", rezourceType);
+      params.put("rezourceType", rezourceType.toString());
     }
     if (!(rezourceId == null)) {
       sql += " and rezource_id = :rezourceId";
@@ -46,6 +51,7 @@ public class RezourceDAO implements iRezourceDAO {
       sql += " and rezourcer_id = :rezourcerId";
       params.put("rezourcerId", rezourcerId.toString());
     }
+
     log.info("RezourcesDao.fetchRezources: sql = {}, params = {}", sql, params);
     return jdbcTemplate.query(sql, params, new RowMapper<>() {
       
