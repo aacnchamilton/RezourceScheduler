@@ -21,4 +21,10 @@ public class PersonController implements iPersonController {
     return personService.fetchPerson(personId, email, phone, firstName, lastName);
   }
 
+  @Override
+  public Person createPerson(Person person) {
+    log.info("PersonController.createPerson: person = {}", person);
+    return personService.createPerson(person);
+  }
+
 }

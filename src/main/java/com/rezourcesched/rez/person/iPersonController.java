@@ -1,8 +1,11 @@
 package com.rezourcesched.rez.person;
 
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -79,4 +82,37 @@ public interface iPersonController {
       @RequestParam(required = false) String phone,
       @RequestParam(required = false) String firstName,
       @RequestParam(required = false) String lastName);
+  
+  @Operation(
+      summary = "Create a Person",
+      description = "Register a new Person",
+      responses = {
+          @ApiResponse(
+              responseCode = "201", 
+              description = "Person Created", 
+              content = @Content(mediaType = "application/json", 
+              schema = @Schema(implementation = Person.class))),
+          @ApiResponse(
+              responseCode = "400", 
+              description = "The request parameters are invalid", 
+              content = @Content(mediaType = "application/json")),
+          @ApiResponse(
+              responseCode = "500", 
+              description = "An unplanned error occurred", 
+              content = @Content(mediaType = "application/json"))
+      },
+      parameters = {
+          @Parameter(
+              name = "person", 
+              allowEmptyValue = false, 
+              required = true, 
+              description = "JSON body of a person")
+      }
+      
+  )
+   
+  @PostMapping
+  @ResponseStatus(code = HttpStatus.CREATED)
+  Person createPerson(
+      @RequestBody(required = true) Person person);
 }

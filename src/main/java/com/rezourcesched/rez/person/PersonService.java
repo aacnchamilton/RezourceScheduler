@@ -21,4 +21,10 @@ public class PersonService implements iPersonService {
     return personDao.fetchPerson(personId, email, phone, firstName, lastName);
   }
 
+  @Override
+  public Person createPerson(Person person) {
+    log.info("PersonService.createPerson: person = {}", person);
+    return null;
+  }
+
 }
