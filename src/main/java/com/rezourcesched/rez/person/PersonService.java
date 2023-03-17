@@ -24,7 +24,7 @@ public class PersonService implements iPersonService {
   @Override
   public Person createPerson(Person person) {
     log.info("PersonService.createPerson: person = {}", person);
-    return null;
+    return personDao.createPerson(person);
   }
 
 }

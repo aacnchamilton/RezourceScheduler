@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.rezourcesched.rez.FetchResourceTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.082 s - in com.rezourcesched.rez.FetchResourceTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.296 s - in com.rezourcesched.rez.FetchResourceTest
