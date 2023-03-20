@@ -27,4 +27,16 @@ public class PersonController implements iPersonController {
     return personService.createPerson(person);
   }
 
+  @Override
+  public Person revisePerson(Person person) {
+    log.info("PersonController.revisePerson: person = {}", person);
+    return personService.revisePerson(person);
+  }
+
+  @Override
+  public String deletePerson(Person person) {
+    log.info("PersonController.deletePerson: person = {}", person);
+    return personService.deletePerson(person);
+  }
+
 }

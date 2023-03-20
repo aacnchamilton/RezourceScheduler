@@ -27,4 +27,16 @@ public class PersonService implements iPersonService {
     return personDao.createPerson(person);
   }
 
+  @Override
+  public Person revisePerson(Person person) {
+    log.info("PersonService.revisePerson: person = {}", person);
+    return personDao.revisePerson(person);
+  }
+
+  @Override
+  public String deletePerson(Person person) {
+    log.info("PersonService.deletePerson: person = {}", person);
+    return personDao.deletePerson(person);
+  }
+
 }

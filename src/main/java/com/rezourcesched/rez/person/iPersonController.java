@@ -3,8 +3,10 @@ package com.rezourcesched.rez.person;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -114,5 +116,71 @@ public interface iPersonController {
   @PostMapping
   @ResponseStatus(code = HttpStatus.CREATED)
   Person createPerson(
+      @RequestBody(required = true) Person person);
+  
+  @Operation(
+      summary = "Update a Person",
+      description = "Update attributes of a Person by PersonId",
+      responses = {
+          @ApiResponse(
+              responseCode = "202", 
+              description = "Person Updated", 
+              content = @Content(mediaType = "application/json", 
+              schema = @Schema(implementation = Person.class))),
+          @ApiResponse(
+              responseCode = "400", 
+              description = "The request parameters are invalid", 
+              content = @Content(mediaType = "application/json")),
+          @ApiResponse(
+              responseCode = "500", 
+              description = "An unplanned error occurred", 
+              content = @Content(mediaType = "application/json"))
+      },
+      parameters = {
+          @Parameter(
+              name = "person", 
+              allowEmptyValue = false, 
+              required = true, 
+              description = "JSON body of a person")
+      }
+      
+  )
+   
+  @PutMapping
+  @ResponseStatus(code = HttpStatus.ACCEPTED)
+  Person revisePerson(
+      @RequestBody(required = true) Person person);
+  
+  @Operation(
+      summary = "Delete a Person",
+      description = "Delete a Person by PersonId",
+      responses = {
+          @ApiResponse(
+              responseCode = "204", 
+              description = "Person Deleted", 
+              content = @Content(mediaType = "application/json", 
+              schema = @Schema(implementation = Person.class))),
+          @ApiResponse(
+              responseCode = "400", 
+              description = "The request parameters are invalid", 
+              content = @Content(mediaType = "application/json")),
+          @ApiResponse(
+              responseCode = "500", 
+              description = "An unplanned error occurred", 
+              content = @Content(mediaType = "application/json"))
+      },
+      parameters = {
+          @Parameter(
+              name = "person", 
+              allowEmptyValue = false, 
+              required = true, 
+              description = "JSON body of a person - really must just provide a Person Id")
+      }
+      
+  )
+   
+  @DeleteMapping
+  @ResponseStatus(code = HttpStatus.NO_CONTENT)
+  String deletePerson(
       @RequestBody(required = true) Person person);
 }

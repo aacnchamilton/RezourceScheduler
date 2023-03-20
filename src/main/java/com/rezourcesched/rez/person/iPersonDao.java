@@ -8,4 +8,8 @@ public interface iPersonDao {
   List<Person> fetchPerson(Long personId, String email, String phone, String firstName, String lastName);
   
   Person createPerson(Person person);
+  
+  Person revisePerson(Person person);
+  
+  String deletePerson(Person person);
 }
