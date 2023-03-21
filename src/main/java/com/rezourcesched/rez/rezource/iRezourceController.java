@@ -3,6 +3,8 @@ package com.rezourcesched.rez.rezource;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -81,4 +83,32 @@ public interface iRezourceController {
       @RequestParam(required = false) String postalCode,
       @RequestParam(required = false) RezourceType rezourceType,
       @RequestParam(required = false) Long rezourcerId);
+  
+  @Operation(
+      summary = "Creates a Rezource",
+      description = "Creates a Rezource (service, place or thing) to rent for a fee)",
+      responses = {
+          @ApiResponse(
+              responseCode = "201", 
+              description = "The Rezource created is returned", 
+              content = @Content(mediaType = "application/json", 
+              schema = @Schema(implementation = Rezource.class))),
+          @ApiResponse(
+              responseCode = "500", 
+              description = "An unplanned error occurred", 
+              content = @Content(mediaType = "application/json"))
+      },
+      parameters = {
+          @Parameter(
+              name = "rezource", 
+              allowEmptyValue = false, 
+              required = true, 
+              description = "JSON body of a Rezource")
+      }  
+  )
+  
+  @PostMapping
+  @ResponseStatus(code = HttpStatus.CREATED)
+  Rezource createRezource(
+      @RequestBody(required = true) Rezource rezource);
 }

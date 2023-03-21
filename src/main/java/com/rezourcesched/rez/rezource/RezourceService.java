@@ -21,4 +21,10 @@ public class RezourceService implements iRezourceService {
     return rezourceDao.fetchRezource(rezourceId, state, postalCode, rezourceType, rezourcerId);
   }
 
+  @Override
+  public Rezource createRezource(Rezource rezource) {
+    log.info("RezourceService: createRezource: rezource = {}", rezource);
+    return rezourceDao.createRezource(rezource);
+  }
+
 }

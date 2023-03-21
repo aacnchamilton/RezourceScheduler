@@ -20,4 +20,10 @@ public class RezourceController implements iRezourceController {
         , rezourceId, state, postalCode, rezourceType, rezourcerId);
     return rezourceService.fetchRezource(rezourceId, state, postalCode, rezourceType, rezourcerId);
   }
+
+  @Override
+  public Rezource createRezource(Rezource rezource) {
+    log.info("RezourceController.createRezource: rezource = {}", rezource);
+    return rezourceService.createRezource(rezource);
+  }
 }
