@@ -1,6 +1,6 @@
 package com.rezourcesched.rez.entity;
 
-import java.sql.Timestamp;
+import java.sql.Time;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,8 +16,9 @@ public class Rezource {
   private RezourceType rezourceType;
   private ScheduleType scheduleType;
   private Status status;
-  private Timestamp startTime;
-  private Timestamp endTime;
+  private Time startTime;
+  private Time endTime;
+  private double minimum;
   private double regularRate;
   private double weekendRate;
   private double deposit;

@@ -9,4 +9,6 @@ public interface iReservationDao {
   List<Reservation> fetchReservation(Long reservationId, Long rezourceId, Long schedulerId, Date dateFrom,
       Date dateTo);
   
+  Reservation createReservation(Reservation reservation);
+  
 }

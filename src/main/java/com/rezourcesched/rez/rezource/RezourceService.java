@@ -27,4 +27,10 @@ public class RezourceService implements iRezourceService {
     return rezourceDao.createRezource(rezource);
   }
 
+  @Override
+  public Rezource reviseRezource(Rezource rezource) {
+    log.info("RezourceService: reviseRezource: rezource = {}",rezource);
+    return rezourceDao.reviseRezource(rezource);
+  }
+
 }

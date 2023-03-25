@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -78,4 +80,37 @@ public interface iReservationController {
           @RequestParam(required = false) Long schedulerId,
           @RequestParam(required = false) Date dateFrom,
           @RequestParam(required = false) Date dateTo);
+  
+  @Operation(
+      summary = "Create a Reservation",
+      description = "Create a new reservation between a scheduler and a rezource",
+      responses = {
+          @ApiResponse(
+              responseCode = "201", 
+              description = "Reservation Created", 
+              content = @Content(mediaType = "application/json", 
+              schema = @Schema(implementation = Reservation.class))),
+          @ApiResponse(
+              responseCode = "400", 
+              description = "The request parameters are invalid", 
+              content = @Content(mediaType = "application/json")),
+          @ApiResponse(
+              responseCode = "500", 
+              description = "An unplanned error occurred", 
+              content = @Content(mediaType = "application/json"))
+      },
+      parameters = {
+          @Parameter(
+              name = "reservation", 
+              allowEmptyValue = false, 
+              required = true, 
+              description = "JSON body of a reservation")
+      }
+      
+  )
+   
+  @PostMapping
+  @ResponseStatus(code = HttpStatus.CREATED)
+  Reservation createReservation(
+      @RequestBody(required = true) Reservation reservation);
 }

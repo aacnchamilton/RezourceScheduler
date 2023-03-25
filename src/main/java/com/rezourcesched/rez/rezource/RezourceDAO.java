@@ -26,11 +26,34 @@ public class RezourceDAO implements iRezourceDAO {
   
   @Autowired
   NamedParameterJdbcTemplate jdbcTemplate;
+  
+
+  @Override
+  public Rezource createRezource(Rezource rezource) {
+    log.info("RezourceDAO.fetchRezource: rezourceId = {}", rezource);
+    Long rezourceId = insertRezource(rezource);
+    log.info("RezourceDAO.createPerson: Newly created rezourceId: {}", rezourceId);
+    List<Rezource> rezourceCreated = fetchRezource(rezourceId, null, null, null, null);
+    return rezourceCreated.get(0);
+  }
+  
+  @Override
+  public Rezource reviseRezource(Rezource rezource) {
+    log.info("RezourceDao.reviseRezource: rezource = {}",rezource);
+    Long rezourceId = updateRezource(rezource);
+    log.info("RezourceDao.reviseRezource: Newly updated rezourceId: {}", rezourceId);
+    List<Rezource> rezourceUpdated = fetchRezource(rezourceId, null, null, null, null);
+    return rezourceUpdated.get(0);
+  }
 
   @Override
   public List<Rezource> fetchRezource(Long rezourceId, String state, String postalCode, RezourceType rezourceType, Long rezourcerId) {
     log.info("RezourceDAO.fetchRezource rezourceId = {}, state = {}, postalCode = {}, rezourceType = {}, rezourcerId = {}"
         , rezourceId, state, postalCode, rezourceType, rezourcerId);
+    return selectRezource(rezourceId, state, postalCode, rezourceType, rezourcerId);
+  }
+   
+  private List<Rezource> selectRezource(Long rezourceId, String state, String postalCode, RezourceType rezourceType, Long rezourcerId) {
     /*** At some point add a City Search ***/
     String sql = "SELECT * FROM rezource WHERE 1=1";  //where 1=1 allows me to construct additional optional bind variables
     Map<String, Object> params = new HashMap<>();
@@ -68,8 +91,9 @@ public class RezourceDAO implements iRezourceDAO {
             .scheduleType(ScheduleType.valueOf(rs.getString("schedule_type")))
             .status(Status.valueOf(rs.getString("status")))
             .keywords(rs.getString("key_words"))
-            .startTime(rs.getTimestamp("start_time"))
-            .endTime(rs.getTimestamp("end_time"))
+            .startTime(rs.getTime("start_time"))
+            .endTime(rs.getTime("end_time"))
+            .minimum(rs.getDouble("minimum"))
             .regularRate(rs.getDouble("regular_rate"))
             .weekendRate(rs.getDouble("weekend_rate"))
             .deposit(rs.getDouble("deposit"))
@@ -101,23 +125,14 @@ public class RezourceDAO implements iRezourceDAO {
     });
   }
 
-  @Override
-  public Rezource createRezource(Rezource rezource) {
-    log.info("RezourceDAO.fetchRezource: rezourceId = {}", rezource);
-    Long rezourceId = insertRezource(rezource);
-    log.info("RezourceDAO.createPerson: Newly created rezourceId: {}", rezourceId);
-    List<Rezource> rezourceCreated = fetchRezource(rezourceId, null, null, null, null);
-    return rezourceCreated.get(0);
-  }
-
   private Long insertRezource(Rezource rezource) {
     String sql = "INSERT INTO rezource ("
         + "rezourcer_id, rezource_type, schedule_type, status, start_time, end_time, regular_rate, weekend_rate, deposit, cleaning_fee, "
-        + "travel_rate, emerg_rate, size_in_ft, people, year, bedrooms, bathrooms, beds, name, description, "
+        + "minimum,travel_rate, emerg_rate, size_in_ft, people, year, bedrooms, bathrooms, beds, name, description, "
         + "style, manufacturer, model, key_words, addr1, addr2, city, state, province, postal_code, country, billing )"
         + " VALUES ("
         + ":rezourcerId, :rezourceType, :scheduleType, :status, :startTime, :endTime, :regularRate, :weekendRate, :deposit, :cleaningFee, "
-        + ":travelRate, :emergRate, :sizeInFeet, :people, :year, :bedrooms, :bathrooms, :beds, :rezourceName, :rezourceDescription, "
+        + ":minimum, :travelRate, :emergRate, :sizeInFeet, :people, :year, :bedrooms, :bathrooms, :beds, :rezourceName, :rezourceDescription, "
         + ":style, :manufacturer, :model, :keywords, :addr1, :addr2, :city, :state, :province, :postalCode, :country, :billing )";
     KeyHolder keyHolder = new GeneratedKeyHolder();
     MapSqlParameterSource params = new MapSqlParameterSource();
@@ -131,6 +146,7 @@ public class RezourceDAO implements iRezourceDAO {
     params.addValue("weekendRate", rezource.getWeekendRate());
     params.addValue("deposit", rezource.getDeposit());
     params.addValue("cleaningFee", rezource.getCleaningFee());
+    params.addValue("minimum", rezource.getMinimum());
     params.addValue("travelRate", rezource.getTravelRate());
     params.addValue("emergRate", rezource.getEmergRate());
     params.addValue("sizeInFeet", rezource.getSizeInFeet());
@@ -157,6 +173,119 @@ public class RezourceDAO implements iRezourceDAO {
     jdbcTemplate.update(sql, params, keyHolder);
     
     return keyHolder.getKey().longValue();
+  }
+  
+  private Long updateRezource(Rezource rezource) {
+    MapSqlParameterSource params = new MapSqlParameterSource();
+    String sql = "UPDATE rezource set ";
+    
+    if (!(rezource.getRezourceName() == null)) {
+      sql += "name = :rezourceName, ";
+      params.addValue("rezourceName", rezource.getRezourceName());
+    }
+    if (!(rezource.getRezourceDescription() == null)) {
+      sql += "description = :rezourceDescription, ";
+      params.addValue("rezourceDescription", rezource.getRezourceDescription());
+    }
+    if (!(rezource.getRezourceType() == null)) {
+      sql += "rezource_type = :rezourceType, ";
+      params.addValue("rezourceType", rezource.getRezourceType().toString());
+    }
+    if (!(rezource.getRezourcerId() == null)) {
+      sql += "rezourcer_id = :rezourcerId, ";
+      params.addValue("rezourcerId", rezource.getRezourcerId());
+    }
+    if (!(rezource.getScheduleType() == null)) {
+      sql += "schedule_type = :scheduleType, ";
+      params.addValue("scheduleType", rezource.getScheduleType().toString());
+    }
+    if (!(rezource.getMinimum() == 0.00)) {
+      sql += "minimum = :minimum, ";
+      params.addValue("minimum", rezource.getMinimum());
+    }
+    if (!(rezource.getRegularRate() == 0.00)) {
+      sql += "regular_rate = :regularRate, ";
+      params.addValue("regularRate", rezource.getRegularRate());
+    }
+    if (!(rezource.getDeposit() == 0.00)) {
+      sql += "deposit = :deposit, ";
+      params.addValue("deposit", rezource.getDeposit());
+    }
+    if (!(rezource.getCleaningFee() == 0.00)) {
+      sql += "cleaning_fee = :cleaningFee, ";
+      params.addValue("cleaningFee", rezource.getCleaningFee());
+    }
+    if (!(rezource.getTravelRate() == 0.00)) {
+      sql += "travel_rate = :travelRate, ";
+      params.addValue("travelRate", rezource.getTravelRate());
+    }
+    if (!(rezource.getEmergRate() == 0.00)) {
+      sql += "emerg_rate = :emergRate, ";
+      params.addValue("emergRate", rezource.getEmergRate());
+    }
+    if (!(rezource.getWeekendRate() == 0.00)) {
+      sql += "weekend_rate = :weekendRate, ";
+      params.addValue("weekendRate", rezource.getWeekendRate());
+    }
+    if (!(rezource.getStartTime() == null)) {
+      sql += "start_time = :startTime, ";
+      params.addValue("startTime", rezource.getStartTime());
+    }
+    if (!(rezource.getEndTime() == null)) {
+      sql += "end_time = :endTime, ";
+      params.addValue("endTime", rezource.getEndTime());
+    }
+    if (!(rezource.getBedrooms() == 0)) {
+      sql += "bedrooms = :bedrooms, ";
+      params.addValue("bedrooms", rezource.getBedrooms());
+    }
+    if (!(rezource.getBathrooms() == 0)) {
+      sql += "batchrooms = :bathrooms, ";
+      params.addValue("bathrooms", rezource.getBathrooms());
+    }
+    if (!(rezource.getBeds() == 0)) {
+      sql += "beds = :beds, ";
+      params.addValue("beds", rezource.getBeds());
+    }
+    if (!(rezource.getSizeInFeet() == 0)) {
+      sql += "size_in_ft = :sizeInFeet, ";
+      params.addValue("sizeInFeet", rezource.getSizeInFeet());
+    }
+    if (!(rezource.getPeople() == 0)) {
+      sql += "people = :people, ";
+      params.addValue("people", rezource.getPeople());
+    }
+    if (!(rezource.getStyle() == null)) {
+      sql += "style = :style, ";
+      params.addValue("style", rezource.getStyle());
+    }
+    if (!(rezource.getManufacturer() == null)) {
+      sql += "manufacturer = :manufacturer, ";
+      params.addValue("manufacturer", rezource.getManufacturer());
+    }
+    if (!(rezource.getModel() == null)) {
+      sql += "model = :model, ";
+      params.addValue("model", rezource.getModel());
+    }
+    if (!(rezource.getYear() == 0)) {
+      sql += "year = :year, ";
+      params.addValue("year", rezource.getYear());
+    }
+    if (!(rezource.getKeywords() == null)) {
+      sql += "key_words = :keyWords, ";
+      params.addValue("keyWords", rezource.getKeywords());
+    }
+    if (!(rezource.getStatus() == null)) {
+      sql += "status = :status, ";
+      params.addValue("status", rezource.getStatus().toString());
+    }
+    
+    sql = sql.substring(0, sql.length()-2);  //Need to remove the ending comma and space from the SQL string
+    sql += " where rezource_id = :rezourceId";  //Can only update a Rezource record by the rezourceId, must have the rezourceId in the request body
+    params.addValue("rezourceId", rezource.getRezourceId());
+    log.info("RezourceDao.updateRezource: sql = {}, parameters = {}", sql, params);
+    jdbcTemplate.update(sql, params);
+    return rezource.getRezourceId();
   }
 
 }

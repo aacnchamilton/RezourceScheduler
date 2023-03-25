@@ -22,4 +22,10 @@ public class ReservationService implements iReservationService {
     return reservationDao.fetchReservation(reservationId, rezourceId, schedulerId, dateFrom, dateTo);
   }
 
+  @Override
+  public Reservation createReservation(Reservation reservation) {
+    log.info("ReservationService.createReservation: reservation = {}", reservation);
+    return reservationDao.createReservation(reservation);
+  }
+
 }

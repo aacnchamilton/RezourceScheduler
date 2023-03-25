@@ -1,0 +1,253 @@
+{
+	"info": {
+		"_postman_id": "a132af93-b379-4401-afde-263de0d53b77",
+		"name": "RezourceScheduler",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14538720"
+	},
+	"item": [
+		{
+			"name": "Get Rezources",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rezource?state=MN",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rezource"
+					],
+					"query": [
+						{
+							"key": "state",
+							"value": "MN"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Rezource",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"rezourcerId\": 1,\r\n        \"rezourceType\": \"Thing\",\r\n        \"scheduleType\": \"Daily\",\r\n        \"status\": \"Active\",\r\n        \"regularRate\": 200.0,\r\n        \"weekendRate\": 0.0,\r\n        \"startTime\": \"08:00:00\",\r\n        \"endTime\": \"17:00:00\",\r\n        \"rezourceName\": \"Camper\",\r\n        \"state\": \"AZ\",\r\n        \"postalCode\": \"85395\",\r\n        \"rezourceDescription\": \"6 person pull behind camper\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rezource",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rezource"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Rezource",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"rezourceId\": 2,        \r\n        \"sizeInFeet\": 1890\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rezource",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rezource"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Person",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/person?personId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"person"
+					],
+					"query": [
+						{
+							"key": "personId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Person",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Sneezy\",\r\n    \"lastName\": \"Dwarf\",\r\n    \"middleName\": \"\",\r\n    \"email\": \"sneezydwarf@snowwhite.com\",\r\n    \"phone\": \"9255551212\",\r\n    \"countryCode\": null,\r\n    \"addr1\": \"125 E Forest Road\",\r\n    \"addr2\": \"\",\r\n    \"city\": \"Dark Forest\",\r\n    \"state\": \"CA\",\r\n    \"province\": \"CALIFORNIA\",\r\n    \"postalCode\": \"93265\",\r\n    \"country\": \"UNITED STATES\",\r\n    \"billing\": \"N\",\r\n    \"status\": \"Active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/person",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"person"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Person",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"personId\": 7,\r\n        \"phone\": \"4808655916\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/person",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"person"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Person",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"personId\": 7\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/person",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"person"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Reservation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/reservation?rezourceId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reservation"
+					],
+					"query": [
+						{
+							"key": "rezourceId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Reservation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"rezourceId\": 1,\r\n        \"schedulerId\": 1,\r\n        \"dateFrom\": \"2023-06-03\",\r\n        \"dateTo\": \"2023-06-05\",\r\n        \"startTime\": \"08:00:00\",\r\n        \"endTime\": \"17:00:00\",\r\n        \"status\": \"Requested\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/reservation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reservation"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

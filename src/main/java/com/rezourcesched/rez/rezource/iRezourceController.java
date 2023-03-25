@@ -4,10 +4,12 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import com.rezourcesched.rez.entity.Person;
 import com.rezourcesched.rez.entity.Rezource;
 import com.rezourcesched.rez.entity.RezourceType;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -110,5 +112,38 @@ public interface iRezourceController {
   @PostMapping
   @ResponseStatus(code = HttpStatus.CREATED)
   Rezource createRezource(
+      @RequestBody(required = true) Rezource rezource);
+  
+  @Operation(
+      summary = "Update a Rezource",
+      description = "Update attributes of a Rezource by rezourceId",
+      responses = {
+          @ApiResponse(
+              responseCode = "202", 
+              description = "Rezource Updated", 
+              content = @Content(mediaType = "application/json", 
+              schema = @Schema(implementation = Rezource.class))),
+          @ApiResponse(
+              responseCode = "400", 
+              description = "The request parameters are invalid", 
+              content = @Content(mediaType = "application/json")),
+          @ApiResponse(
+              responseCode = "500", 
+              description = "An unplanned error occurred", 
+              content = @Content(mediaType = "application/json"))
+      },
+      parameters = {
+          @Parameter(
+              name = "rezource", 
+              allowEmptyValue = false, 
+              required = true, 
+              description = "JSON body of a rezource")
+      }
+      
+  )
+   
+  @PutMapping
+  @ResponseStatus(code = HttpStatus.ACCEPTED)
+  Rezource reviseRezource(
       @RequestBody(required = true) Rezource rezource);
 }

@@ -9,4 +9,6 @@ public interface iRezourceService {
   List<Rezource> fetchRezource(Long rezourceId, String state, String postalCode, RezourceType rezourceType, Long rezourcerId);
   
   Rezource createRezource(Rezource rezource);
+  
+  Rezource reviseRezource(Rezource rezource);
 }

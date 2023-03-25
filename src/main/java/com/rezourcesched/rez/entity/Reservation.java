@@ -20,7 +20,7 @@ public class Reservation {
   private Date dateTo;
   private Time startTime;
   private Time endTime;
-  private int travelTime;
+  private int travelTime;  //travel time in minutes
   private int numOfPeople;
   private String specialRequests;
   private ReservationStatus status;

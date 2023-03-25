@@ -26,4 +26,10 @@ public class RezourceController implements iRezourceController {
     log.info("RezourceController.createRezource: rezource = {}", rezource);
     return rezourceService.createRezource(rezource);
   }
+
+  @Override
+  public Rezource reviseRezource(Rezource rezource) {
+    log.info("RezourceController.reviseRezource: rezource = {}",rezource);
+    return rezourceService.reviseRezource(rezource);
+  }
 }
